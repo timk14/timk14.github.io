@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Tim Konopacki | Software Engineer &amp; Tech-to-Business Bridge
+    </title>
+    <meta
+      name="description"
+      content="Software engineer, frontend tech lead, and defense acquisition MBA candidate bridging engineering and business in the space and defense domain."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛰️</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Space+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #05060f;
+        --deep: #0b0d1f;
+        --panel: #10132b;
+        --line: #262a52;
+        --cyan: #2ff3ff;
+        --magenta: #ff2e9a;
+        --amber: #ffc83d;
+        --text: #dfe4ff;
+        --dim: #8c93c4;
+        --head: "Chakra Petch", "Trebuchet MS", sans-serif;
+        --body: "Space Grotesk", "Segoe UI", sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--void);
+        color: var(--text);
+        font: 400 1.05rem/1.65 var(--body);
+        overflow-x: hidden;
+      }
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+      }
+      a {
+        color: var(--cyan);
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+      }
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1.4rem;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(5, 6, 15, 0.82);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+      }
+      nav b {
+        font: 700 1.05rem var(--head);
+        color: var(--cyan);
+        letter-spacing: 0.04em;
+      }
+      nav ul {
+        display: flex;
+        gap: 1.4rem;
+        list-style: none;
+        padding: 0;
+        font: 0.9rem var(--mono);
+      }
+      nav ul a {
+        color: var(--dim);
+        text-decoration: none;
+      }
+      nav ul a:hover {
+        color: var(--magenta);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--head);
+        line-height: 1.15;
+      }
+      h2 {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        margin-bottom: 0.6rem;
+        color: #fff;
+      }
+      h2::after {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 3px;
+        margin-top: 0.6rem;
+        background: linear-gradient(90deg, var(--magenta), var(--cyan));
+        box-shadow: 0 0 12px var(--magenta);
+      }
+      section {
+        padding: 4.5rem 0 1rem;
+      }
+      .lede {
+        color: var(--dim);
+        max-width: 62ch;
+        margin-bottom: 2rem;
+      }
+
+      /* hero */
+      .hero {
+        padding: 5rem 0 3rem;
+        text-align: left;
+      }
+      .hero h1 {
+        font-size: clamp(2.4rem, 8vw, 4.8rem);
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 0 28px rgba(47, 243, 255, 0.45);
+      }
+      .hero .role {
+        font: 1rem var(--mono);
+        color: var(--cyan);
+        margin: 0.9rem 0 1.4rem;
+      }
+      .hero p.pitch {
+        font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+        max-width: 30em;
+        color: var(--text);
+      }
+      .hero p.pitch em {
+        font-style: normal;
+        color: var(--magenta);
+      }
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 2rem;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.7rem 1.3rem;
+        font: 500 0.95rem var(--mono);
+        text-decoration: none;
+        color: var(--cyan);
+        border: 1px solid var(--cyan);
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .btn:hover {
+        background: var(--cyan);
+        color: var(--void);
+      }
+      .btn.hot {
+        color: var(--magenta);
+        border-color: var(--magenta);
+      }
+      .btn.hot:hover {
+        background: var(--magenta);
+        color: var(--void);
+      }
+
+      /* bridge diagram: the signature element */
+      .bridge {
+        margin: 3rem 0 0;
+        padding: 1.6rem 1rem;
+        background: linear-gradient(180deg, var(--deep), transparent);
+        border: 1px solid var(--line);
+      }
+      .bridge svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .beam {
+        stroke-dasharray: 6 10;
+        animation: flow 1.4s linear infinite;
+      }
+      @keyframes flow {
+        to {
+          stroke-dashoffset: -32;
+        }
+      }
+      .pulse {
+        animation: pulse 2.4s ease-in-out infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+      }
+      @keyframes pulse {
+        50% {
+          transform: scale(1.18);
+          opacity: 0.65;
+        }
+      }
+      .bridge figcaption {
+        font: 0.85rem var(--mono);
+        color: var(--dim);
+        text-align: center;
+        margin-top: 0.6rem;
+      }
+
+      /* grids */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.2rem;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--magenta);
+        padding: 1.3rem 1.3rem 1.4rem;
+      }
+      .card:nth-child(even) {
+        border-left-color: var(--cyan);
+      }
+      .card h3 {
+        font-size: 1.15rem;
+        color: #fff;
+        margin-bottom: 0.4rem;
+      }
+      .card p {
+        color: var(--dim);
+        font-size: 0.98rem;
+      }
+
+      /* timeline */
+      .log {
+        border-left: 2px solid var(--line);
+        margin-left: 0.5rem;
+        padding-left: 1.8rem;
+      }
+      .entry {
+        position: relative;
+        margin-bottom: 2.4rem;
+      }
+      .entry::before {
+        content: "";
+        position: absolute;
+        left: calc(-1.8rem - 7px);
+        top: 0.5rem;
+        width: 12px;
+        height: 12px;
+        background: var(--void);
+        border: 2px solid var(--cyan);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--cyan);
+      }
+      .entry.now::before {
+        border-color: var(--magenta);
+        background: var(--magenta);
+        box-shadow: 0 0 14px var(--magenta);
+      }
+      .entry h3 {
+        font-size: 1.3rem;
+        color: #fff;
+      }
+      .meta {
+        font: 0.85rem var(--mono);
+        color: var(--amber);
+        margin: 0.2rem 0 0.8rem;
+      }
+      .entry ul {
+        padding-left: 1.1rem;
+        color: var(--text);
+      }
+      .entry li {
+        margin-bottom: 0.55rem;
+      }
+      .entry li::marker {
+        color: var(--magenta);
+      }
+      .entry h4 {
+        font: 500 0.95rem var(--mono);
+        color: var(--cyan);
+        margin: 1.1rem 0 0.5rem;
+      }
+
+      /* skills */
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.6rem 0 1.6rem;
+      }
+      .chip {
+        font: 0.85rem var(--mono);
+        padding: 0.3rem 0.7rem;
+        border: 1px solid var(--line);
+        background: var(--deep);
+        color: var(--text);
+      }
+      .chip.biz {
+        border-color: var(--magenta);
+        color: #ffd0ea;
+      }
+      .skillgroup h3 {
+        font-size: 1rem;
+        color: var(--dim);
+        font-weight: 500;
+      }
+
+      .edu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.2rem;
+      }
+      .edu .card {
+        border-left-color: var(--amber);
+      }
+      .edu .when {
+        font: 0.85rem var(--mono);
+        color: var(--amber);
+      }
+
+      footer {
+        margin-top: 5rem;
+        padding: 3rem 0 4rem;
+        border-top: 1px solid var(--line);
+        text-align: center;
+        background: linear-gradient(
+          0deg,
+          rgba(255, 46, 154, 0.08),
+          transparent
+        );
+      }
+      footer h2::after {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      footer .cta {
+        justify-content: center;
+      }
+      footer small {
+        display: block;
+        margin-top: 2.2rem;
+        font: 0.8rem var(--mono);
+        color: var(--dim);
+      }
+
+      @media (max-width: 640px) {
+        nav ul {
+          gap: 0.9rem;
+          font-size: 0.8rem;
+        }
+        nav b {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .beam,
+        .pulse {
+          animation: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <nav>
+      <div class="wrap">
+        <b>T.KONOPACKI</b>
+        <ul>
+          <li><a href="#bridge">bridge</a></li>
+          <li><a href="#business">business</a></li>
+          <li><a href="#mission-log">experience</a></li>
+          <li><a href="#stack">stack</a></li>
+          <li><a href="#contact">contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="wrap hero" id="top">
+      <h1>Timothy Konopacki</h1>
+      <p class="role">
+        Software Engineer · Frontend Tech Lead · Defense Acquisition MBA
+        candidate
+      </p>
+      <p class="pitch">
+        I build mission software for space and defense customers, and I speak
+        fluent <em>business</em> too. I turn customer needs into shipped
+        products and engineering work into wins the whole company can use.
+      </p>
+      <div class="cta">
+        <a class="btn" href="#mission-log">See my experience</a>
+        <a class="btn hot" href="https://www.linkedin.com/in/tim-konopacki/"
+          >LinkedIn</a
+        >
+        <a class="btn" href="mailto:tim.konopacki@gmail.com">Email me</a>
+      </div>
+
+      <figure class="bridge" id="bridge">
+        <svg
+          viewBox="0 0 800 250"
+          role="img"
+          aria-label="Diagram: engineering on the left and business on the right, connected through Tim in the middle"
+        >
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#2ff3ff" />
+              <stop offset="1" stop-color="#ff2e9a" />
+            </linearGradient>
+          </defs>
+          <ellipse
+            cx="400"
+            cy="125"
+            rx="330"
+            ry="78"
+            fill="none"
+            stroke="#262a52"
+            stroke-dasharray="2 8"
+          />
+          <line
+            class="beam"
+            x1="150"
+            y1="125"
+            x2="650"
+            y2="125"
+            stroke="url(#g)"
+            stroke-width="3"
+          />
+          <g
+            font-family="Chakra Petch,Trebuchet MS,sans-serif"
+            text-anchor="middle"
+          >
+            <circle
+              cx="120"
+              cy="125"
+              r="44"
+              fill="#0b0d1f"
+              stroke="#2ff3ff"
+              stroke-width="2"
+            />
+            <text
+              x="120"
+              y="130"
+              fill="#2ff3ff"
+              font-size="17"
+              font-weight="700"
+            >
+              TECH
+            </text>
+            <text x="120" y="205" fill="#8c93c4" font-size="13">
+              Angular · React · Vue
+            </text>
+            <text x="120" y="223" fill="#8c93c4" font-size="13">
+              Cesium · CI/CD
+            </text>
+            <circle
+              cx="680"
+              cy="125"
+              r="44"
+              fill="#0b0d1f"
+              stroke="#ff2e9a"
+              stroke-width="2"
+            />
+            <text
+              x="680"
+              y="130"
+              fill="#ff2e9a"
+              font-size="17"
+              font-weight="700"
+            >
+              BUSINESS
+            </text>
+            <text x="680" y="205" fill="#8c93c4" font-size="13">
+              Capture · Proposals
+            </text>
+            <text x="680" y="223" fill="#8c93c4" font-size="13">
+              Recruiting · Acquisition
+            </text>
+            <circle
+              class="pulse"
+              cx="400"
+              cy="125"
+              r="34"
+              fill="#10132b"
+              stroke="#ffc83d"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="131"
+              fill="#ffc83d"
+              font-size="20"
+              font-weight="700"
+            >
+              TIM
+            </text>
+            <text x="400" y="62" fill="#dfe4ff" font-size="14">
+              translator · lead · builder
+            </text>
+          </g>
+        </svg>
+        <figcaption>
+          Requirements flow one way, working software and business value flow
+          the other.
+        </figcaption>
+      </figure>
+    </header>
+
+    <main class="wrap">
+      <section id="business">
+        <h2>The business side of engineering</h2>
+        <p class="lede">
+          Most engineers stop at the code. I also sit in the rooms where
+          programs get won, staffed, and steered, and I'm finishing an MBA in
+          Defense Acquisition to go deeper.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>Proposal and capture</h3>
+            <p>
+              Contributed to proposal capture, technical documentation, and
+              strategic reviews that supported company growth.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Recruiting and hiring</h3>
+            <p>
+              Main software recruiter at school job fairs. I helped review
+              resumes, sat in interviews, and landed top candidates for the
+              intern program.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Stakeholder consulting</h3>
+            <p>
+              Worked directly with customers to shape design decisions, balance
+              speed with long-term scalability, and still hit their
+              requirements.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Leadership and mentoring</h3>
+            <p>
+              Onboarded interns and new hires, ran code reviews, and facilitated
+              quarterly software meetings at company and customer sites.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Executive communication</h3>
+            <p>
+              Ran weekly stand-ups for Dayton office tech leads, tracked action
+              items, and made sure executives followed up. Presented Figma
+              mockups of new tools to business development leaders.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Defense acquisition</h3>
+            <p>
+              MBA in Defense Acquisition at Wright State (expected May 2029), so
+              I understand how the government buys what we build.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="mission-log">
+        <h2>Experience</h2>
+        <p class="lede">
+          Three roles in about three years, all building web software for
+          defense and space-domain customers.
+        </p>
+        <div class="log">
+          <article class="entry now">
+            <h3>Software Engineer, Altamira Technologies</h3>
+            <div class="meta">Dec 2025 to present · Fairborn, OH</div>
+            <ul>
+              <li>
+                <b>Frontend Technical Lead</b> and main developer on a
+                Cesium-based mapping project. I enforce code quality with custom
+                ESLint standards, mentor through code reviews, and streamline
+                CI/CD for automated deployments.
+              </li>
+              <li>
+                Designed, architected, and deployed the frontend for a new
+                customer-facing File Ingester, with complex data tables and
+                dynamic analysis graphs, from inception to production.
+              </li>
+              <li>
+                Built and maintain a versioned internal NPM UI package that
+                fixed code duplication across multiple active projects. I
+                consulted with stakeholders on design to keep the work scalable
+                and fast.
+              </li>
+              <li>
+                Recruit software interns at school job fairs and help with
+                resume review and interviews.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <h3>Software Engineer, Awetomaton Ltd.</h3>
+            <div class="meta">Oct 2025 to Dec 2025 · Beavercreek, OH</div>
+            <ul>
+              <li>
+                Joined a greenfield R&amp;D effort to replace legacy Excel
+                workflows with a modern web app, using React, TypeScript, Redux,
+                and Material UI.
+              </li>
+              <li>
+                Integrated Cesium for event visualization and AG Grid for
+                advanced data tables, and built reusable, type-safe components.
+              </li>
+              <li>
+                Took part in biweekly stakeholder meetings to refine
+                requirements and adjust priorities as the business changed.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <h3>Software Engineer, Altamira Technologies</h3>
+            <div class="meta">Oct 2023 to Oct 2025 · Fairborn, OH</div>
+            <h4>Software development and testing</h4>
+            <ul>
+              <li>
+                Built scalable Vue applications with component reuse, Docker
+                Compose files, npm seed scripts, and custom widgets that
+                improved performance.
+              </li>
+              <li>
+                Wrote integration tests with Mocha and Chai, standardized REST
+                API endpoints, and ran manual testing for reliable releases.
+              </li>
+              <li>
+                Led a company-wide move off Docker Desktop: evaluated
+                alternatives, coordinated across teams, and wrote the
+                documentation.
+              </li>
+            </ul>
+            <h4>Business development and leadership</h4>
+            <ul>
+              <li>
+                Ran weekly stand-ups for Dayton office tech leads and drove
+                executive follow-up.
+              </li>
+              <li>
+                Contributed to proposal capture, technical documentation, and
+                strategic reviews.
+              </li>
+              <li>
+                Mentored interns and new hires and facilitated quarterly
+                software meetings at company and customer sites.
+              </li>
+              <li>
+                Created Figma mockups for new tools and presented them to
+                business development leaders.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="stack">
+        <h2>Toolkit</h2>
+        <p class="lede">The business skills are highlighted in magenta.</p>
+        <div class="skillgroup">
+          <h3>Languages and frameworks</h3>
+          <div class="chips">
+            <span class="chip">Angular</span><span class="chip">React</span
+            ><span class="chip">TypeScript</span><span class="chip">Vue</span
+            ><span class="chip">JavaScript</span
+            ><span class="chip">Node.js</span><span class="chip">CSS</span
+            ><span class="chip">HTML</span><span class="chip">YAML</span>
+          </div>
+          <h3>Software and tools</h3>
+          <div class="chips">
+            <span class="chip">Cesium</span><span class="chip">ECharts</span
+            ><span class="chip">PrimeNG</span><span class="chip">Plotly</span
+            ><span class="chip">Leaflet</span
+            ><span class="chip">Docker Swarm</span
+            ><span class="chip">GitLab CI/CD</span
+            ><span class="chip">Figma</span>
+          </div>
+          <h3>Business and proposal</h3>
+          <div class="chips">
+            <span class="chip biz">Recruiting</span
+            ><span class="chip biz">Interviewing</span
+            ><span class="chip biz">Proposal writing</span
+            ><span class="chip biz">Capture analysis</span
+            ><span class="chip biz">Interpersonal skills</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <div class="edu" style="margin-top: 1.6rem">
+          <div class="card">
+            <div class="when">Expected May 2029</div>
+            <h3>MBA, Defense Acquisition</h3>
+            <p>Wright State University, Raj Soin College of Business</p>
+          </div>
+          <div class="card">
+            <div class="when">May 2023</div>
+            <h3>BS, Computer Science</h3>
+            <p>
+              University of Dayton. Minor in Business Administration,
+              concentration in Cyber Defense.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="wrap">
+        <h2>Let's connect</h2>
+        <p class="lede" style="margin: 0 auto">
+          If you need someone who can build the thing and explain why it matters
+          to the people paying for it, reach out.
+        </p>
+        <div class="cta">
+          <a class="btn" href="mailto:tim.konopacki@gmail.com"
+            >tim.konopacki@gmail.com</a
+          >
+          <a class="btn hot" href="https://www.linkedin.com/in/tim-konopacki/"
+            >linkedin.com/in/tim-konopacki</a
+          >
+        </div>
+        <small>Fairborn, OH · © 2026 Timothy Konopacki</small>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var c = document.getElementById("stars"),
+          x = c.getContext("2d"),
+          stars = [],
+          w,
+          h;
+        var still = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        function size() {
+          w = c.width = innerWidth;
+          h = c.height = innerHeight;
+          stars = [];
+          var n = Math.min(220, Math.floor((w * h) / 7000));
+          for (var i = 0; i < n; i++) {
+            stars.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              r: Math.random() * 1.4 + 0.2,
+              s: Math.random() * 0.25 + 0.03,
+              col: ["#ffffff", "#2ff3ff", "#ff2e9a"][
+                Math.random() < 0.8 ? 0 : Math.random() < 0.5 ? 1 : 2
+              ],
+              p: Math.random() * 6,
+            });
+          }
+        }
+        function draw(t) {
+          x.clearRect(0, 0, w, h);
+          var g = x.createRadialGradient(
+            w * 0.85,
+            h * 0.1,
+            0,
+            w * 0.85,
+            h * 0.1,
+            w * 0.7,
+          );
+          g.addColorStop(0, "rgba(255,46,154,.16)");
+          g.addColorStop(1, "rgba(5,6,15,0)");
+          x.fillStyle = g;
+          x.fillRect(0, 0, w, h);
+          var g2 = x.createRadialGradient(
+            w * 0.1,
+            h * 0.9,
+            0,
+            w * 0.1,
+            h * 0.9,
+            w * 0.6,
+          );
+          g2.addColorStop(0, "rgba(47,243,255,.12)");
+          g2.addColorStop(1, "rgba(5,6,15,0)");
+          x.fillStyle = g2;
+          x.fillRect(0, 0, w, h);
+          stars.forEach(function (s) {
+            if (!still) {
+              s.y += s.s;
+              if (s.y > h) {
+                s.y = 0;
+                s.x = Math.random() * w;
+              }
+            }
+            x.globalAlpha = still ? 0.8 : 0.45 + 0.45 * Math.sin(t / 900 + s.p);
+            x.fillStyle = s.col;
+            x.beginPath();
+            x.arc(s.x, s.y, s.r, 0, 6.283);
+            x.fill();
+          });
+          x.globalAlpha = 1;
+          if (!still) requestAnimationFrame(draw);
+        }
+        addEventListener("resize", function () {
+          size();
+          if (still) draw(0);
+        });
+        size();
+        requestAnimationFrame(draw);
+      })();
+    </script>
+  </body>
+</html>
